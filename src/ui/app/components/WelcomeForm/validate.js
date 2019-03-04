@@ -13,8 +13,17 @@
  */
 export const validate = (values) => {
   const errors = {};
-
   // TODO: Validate that the user has entered a username, first name, and last name
-
+  if (!values.get('userName')) {
+    errors.userName = true;
+  } else if (values.get('userName').length > 15) {
+    errors.userName = 'Must be 10 characters or less'
+  }
+  if (!values.get('firstName')) {
+    errors.firstName = true;
+  }
+  if (!values.get('lastName')) {
+    errors.lastName = true;
+  }
   return errors;
 };

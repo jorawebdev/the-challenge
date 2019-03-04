@@ -20,11 +20,13 @@ import WelcomeForm from 'components/WelcomeForm/WelcomeForm';
 import { CONTAINER_KEY } from '../constants';
 import saga from '../saga';
 import reducer from '../reducer';
+import Immutable from 'immutable';
+import { fromPairs } from 'lodash';
+import { getLuckyNumber, getUser } from '../actions';
 
 class Welcome extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.submit = this.submit.bind(this);
   }
 
@@ -34,12 +36,14 @@ class Welcome extends React.PureComponent {
    * @see https://redux-form.com/7.4.2/docs/gettingstarted.md/#step-4-of-4-reacting-to-submit
    * @param {*} values An immutable map of the Redux Form values
    */
+
   submit(values) {
-    const { dispatch } = this.props;
-
     // TODO: Get the form values and invoke the service layer
-
-    dispatch(???);
+    let [...user] = values.entries();
+    user = _.fromPairs(user);
+    const { dispatch } = this.props;
+    dispatch(getLuckyNumber(user.userName));
+    dispatch(getUser(user));
   }
 
   render() {
@@ -50,8 +54,9 @@ class Welcome extends React.PureComponent {
         </Helmet>
 
         <div className="mt5 pa4 center w-25 bg-light-gray">
-          <WelcomeForm onSubmit={???} />
+          <WelcomeForm onSubmit={this.submit} />
         </div>
+        { this.props.error ? <div className="error-text mt3">{this.props.payload.message}</div> : null }
       </article>
     );
   }
@@ -63,7 +68,18 @@ Welcome.propTypes = {
 
 // These are some handy functions provided by the boilerplate project
 // They take care of injecting the Saga and reducer
-const withConnect = connect();
+const mapStateToProps = (state) => {
+  const error = state.getIn(['code-challenge/welcome'], 'error');
+  if(state.getIn(['code-challenge/welcome'], 'error').error){
+    return ({
+      error: error.error,
+      payload: error.payload
+    });
+  } else {
+    return ({});
+  }
+};
+const withConnect = connect(mapStateToProps);
 const withSaga = injectSaga({ key: CONTAINER_KEY, saga });
 const withReducer = injectReducer({ key: CONTAINER_KEY, reducer });
 

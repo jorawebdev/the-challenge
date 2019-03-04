@@ -23,3 +23,16 @@ label {
   font-family: Georgia, Times, 'Times New Roman', serif;
   line-height: 1.5em;
 }
+
+form .box-buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+article {
+  text-align: center;
+}
+
+.error-text {
+  color: #f33;
+}
