@@ -17,9 +17,14 @@ import { validate } from './validate';
 
 class WelcomeForm extends React.PureComponent {
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const {
+      handleSubmit,
+      pristine,
+      reset,
+      submitting
+    } = this.props;
     return (
-      <form className="flex flex-column" onSubmit={ handleSubmit }>
+      <form className="flex flex-column" onSubmit={handleSubmit}>
         {/* TODO: Add elements to form to collect user input */}
         <Field
           name="firstName"
@@ -54,8 +59,9 @@ class WelcomeForm extends React.PureComponent {
 
 WelcomeForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  touched: PropTypes.bool,
-  error: PropTypes.bool
+  pristine: PropTypes.bool,
+  reset: PropTypes.func.isRequired,
+  submitting: PropTypes.bool
 };
 
 // TODO: Add validation

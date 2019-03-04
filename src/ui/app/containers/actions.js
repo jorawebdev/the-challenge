@@ -5,6 +5,7 @@
  */
 
 import { DISPATCH_ACTIONS } from './constants';
+
 export function getLuckyNumber(username) {
   return {
     type: DISPATCH_ACTIONS.GET_LUCKY_NUMBER,
@@ -25,8 +26,8 @@ export function getUser(user) {
     user
   };
 }
-export const sendDataFailure = err => ({
-    type: DISPATCH_ACTIONS.SEND_DATA_FAILURE,
-    payload: err,
-    error: true,
+export const sendDataFailure = (err) => ({
+  type: DISPATCH_ACTIONS.SEND_DATA_FAILURE,
+  payload: err,
+  error: true,
 });

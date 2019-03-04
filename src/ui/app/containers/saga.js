@@ -15,11 +15,11 @@ import { push } from 'react-router-redux';
 import request from 'utils/request';
 
 import { DISPATCH_ACTIONS } from './constants';
-import { userFetchSucceeded, sendDataFailure } from './actions'
+import { userFetchSucceeded, sendDataFailure } from './actions';
 
 export function* getLuckyNumber({ username }) {
   // TODO: What port is the service layer running on again?
-  const requestUrl = 'http://localhost:1337/lucky-number' + '?username=' + username;
+  const requestUrl = `http://localhost:1337/lucky-number?username=${username}`;
 
   try {
     const result = yield call(request, requestUrl);
@@ -28,7 +28,6 @@ export function* getLuckyNumber({ username }) {
     yield put(push('/lucky'));
   } catch (err) {
     // TODO: Bonus points for some error handling
-    console.log('in err: ', err);
     yield put(sendDataFailure(err));
   }
 }

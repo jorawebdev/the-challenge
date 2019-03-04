@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import LuckyNumberDisplay from 'components/LuckyNumberDisplay/LuckyNumberDisplay';
 import { CONTAINER_KEY } from '../constants';
-import Immutable from 'immutable';
 
 class LuckyNumber extends React.PureComponent {
   render() {

@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
+import _ from 'lodash';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,8 +21,6 @@ import WelcomeForm from 'components/WelcomeForm/WelcomeForm';
 import { CONTAINER_KEY } from '../constants';
 import saga from '../saga';
 import reducer from '../reducer';
-import Immutable from 'immutable';
-import { fromPairs } from 'lodash';
 import { getLuckyNumber, getUser } from '../actions';
 
 class Welcome extends React.PureComponent {
@@ -63,21 +62,22 @@ class Welcome extends React.PureComponent {
 }
 
 Welcome.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  error: PropTypes.bool,
+  payload: PropTypes.object
 };
 
 // These are some handy functions provided by the boilerplate project
 // They take care of injecting the Saga and reducer
 const mapStateToProps = (state) => {
-  const error = state.getIn(['code-challenge/welcome'], 'error');
-  if(state.getIn(['code-challenge/welcome'], 'error').error){
-    return ({
-      error: error.error,
-      payload: error.payload
-    });
-  } else {
-    return ({});
-  }
+  const selected = state.getIn(['code-challenge/welcome'], 'error');
+  const props = (selected.error)
+    ?
+    { ...state, error: selected.error, payload: selected.payload }
+    :
+    { ...state };
+
+  return props;
 };
 const withConnect = connect(mapStateToProps);
 const withSaga = injectSaga({ key: CONTAINER_KEY, saga });

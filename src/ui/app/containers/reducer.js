@@ -19,25 +19,25 @@ function reducer(state = initialState, action) {
     case DISPATCH_ACTIONS.GET_LUCKY_NUMBER:
       // TODO: Set things in the Redux store
       return {
-        ... state,
+        ...state,
         userName: action.username
-      }
+      };
     case DISPATCH_ACTIONS.GET_USER:
       return {
-        ... state,
+        ...state,
         user: action.user
-      }
+      };
     case DISPATCH_ACTIONS.USER_FETCH_SUCCEEDED:
       return {
-        ... state,
+        ...state,
         luckyNumber: action.luckyNumber
-      }
-    case  DISPATCH_ACTIONS.SEND_DATA_FAILURE:
-    return {
-      ... state,
-      payload: action.payload,
-      error: action.error
-    }
+      };
+    case DISPATCH_ACTIONS.SEND_DATA_FAILURE:
+      return {
+        ...state,
+        payload: action.payload,
+        error: action.error
+      };
     default:
       return state;
   }
